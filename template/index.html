@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js Start</title>
+  <style>
+    #app {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #2c3e50;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>F1 drivers</h2>
+    <ul>
+        <li v-for="driver in drivers">{{`${driver.firstname} ${driver.lastname}`}}</li>
+    </ul>
+
+    <input type="text" v-model="new_driver_firstname" />
+    <input type="text" v-model="new_driver_lastname" />
+    <input type="button" value="Add" v-on:click="addDriver" />
+    <div v-if="">
+        Fill both first name and last name input.
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script>
+    new Vue({
+        el: '#app',
+        data: {
+            drivers: [
+                {
+                    firstname: "Max",
+                    lastname: "Verstappen"
+                }
+            ],
+            new_driver_firstname: '',
+            new_driver_lastname: ''
+        },
+        methods: {
+            addDriver() {
+                if (!!this.new_driver_firstname && !!this.new_driver_lastname) {
+                    this.drivers.push({
+                        firstname: this.new_driver_firstname,
+                        lastname: this.new_driver_lastname
+                    });
+                    this.new_driver_firstname = '';
+                    this.new_driver_lastname = '';
+                }
+            }
+        }
+    });
+  </script>
+</body>
+
+</html>
