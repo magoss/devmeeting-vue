@@ -8,6 +8,7 @@
       </li>
     </ul>
 
+    <!-- button added -->
     <input type="text" v-model="newDriverFirstname" />
     <input type="text" v-model="newDriverLastname" />
     <input type="button" value="Add" v-on:click="addDriver" />
