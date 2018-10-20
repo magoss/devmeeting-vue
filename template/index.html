@@ -22,10 +22,10 @@
         <li v-for="driver in drivers">{{`${driver.firstname} ${driver.lastname}`}}</li>
     </ul>
 
-    <input type="text" v-model="new_driver_firstname" />
-    <input type="text" v-model="new_driver_lastname" />
+    <input type="text" v-model="newDriverFirstname" />
+    <input type="text" v-model="newDriverLastname" />
     <input type="button" value="Add" v-on:click="addDriver" />
-    <div v-if="">
+    <div v-if="unableToAdd">
         Fill both first name and last name input.
     </div>
   </div>
@@ -42,19 +42,27 @@
                     lastname: "Verstappen"
                 }
             ],
-            new_driver_firstname: '',
-            new_driver_lastname: ''
+            newDriverFirstname: '',
+            newDriverLastname: '',
+            unableToAdd: false
         },
         methods: {
             addDriver() {
-                if (!!this.new_driver_firstname && !!this.new_driver_lastname) {
+                this.clearMessage();
+
+                if (!!this.newDriverFirstname && !!this.newDriverLastname) {
                     this.drivers.push({
-                        firstname: this.new_driver_firstname,
-                        lastname: this.new_driver_lastname
+                        firstname: this.newDriverFirstname,
+                        lastname: this.newDriverLastname
                     });
-                    this.new_driver_firstname = '';
-                    this.new_driver_lastname = '';
+                    this.newDriverFirstname = '';
+                    this.newDriverLastname = '';
+                } else {
+                    this.unableToAdd = true;
                 }
+            },
+            clearMessage() {
+                this.unableToAdd = false;
             }
         }
     });
