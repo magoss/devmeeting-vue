@@ -2,10 +2,9 @@
   <div class="driver-list">
     <h2>F1 drivers</h2>
     <ul>
-      <DriverListItem v-for="(driver, index) in drivers" 
-        :key="index" 
+      <DriverListItem v-for="driver in sharedState.drivers" 
+        :key="driver.id" 
         :driver="driver"
-        :index="index" 
         @remove-driver="removeDriver" />
     </ul>
       <NewDriverForm @add-driver="addDriver" />
@@ -15,28 +14,27 @@
 <script>
 import DriverListItem from './DriverListItem';
 import NewDriverForm from './NewDriverForm';
+import store from '../store';
 
 export default {
   components: {
     DriverListItem,
     NewDriverForm
   },
+  created() {
+    store.fetchDrivers();
+  },
   data () {
     return {
-      drivers: [
-        {
-          firstname: "Max",
-          lastname: "Verstappen"
-        }
-      ]
+      sharedState: store.state 
     }
   },
   methods: {
     addDriver(driver) {
-      this.drivers.push(driver);
+      store.addDriver(driver);
     },
-    removeDriver(index) {
-      this.drivers.splice(index, 1);
+    removeDriver(id) {
+      store.removeDriver(id);
     }
   },
   name: 'DriverList'
