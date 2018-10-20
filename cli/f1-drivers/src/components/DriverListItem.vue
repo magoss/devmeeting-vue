@@ -1,3 +1,5 @@
+<!-- ListItem component  -->
+
 <template>
   <li>
     {{`${driver.firstname} ${driver.lastname}`}}
@@ -9,7 +11,7 @@
   export default {
     methods: {
       removeDriver() {
-        this.$emit('remove-driver', this.driver.id );
+        this.$emit('remove-driver', this.index );
       }
     },
     name: 'DriverListItem',
