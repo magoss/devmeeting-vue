@@ -1,19 +1,48 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
 import axios from 'axios';
+import createLogger from 'vuex/dist/logger'
 
-// Move data to store
-const store = {
+Vue.use(Vuex);
+
+export default new Vuex.Store({
   state: {
     drivers: []
-  }, 
-  async fetchDrivers() {
-    this.state.drivers = await axios.get('drivers.json').then(res => res.data.drivers);
   },
-  addDriver(driver) {
-    this.state.drivers.push(driver);
-  }, 
-  removeDriver(id) {
-    this.state.drivers = this.state.drivers.filter(driver => driver.id !== id);
-  }
-}
+  mutations: {
+    fetchDrivers(state, payload) {
+      state.drivers = payload.drivers;
+    },
+    addDriver(state, payload) {
+      state.drivers.push(payload.driver);
+    },
+    removeDriver(state, payload) {
+      state.drivers = state.drivers.filter(driver => driver.id !== payload.id);
+    }
+  },
+  actions: {
+    async fetchDrivers(store) {
+      const drivers = await axios.get('drivers.json').then(res => res.data.drivers);
 
-export default store;
+      store.commit({
+        type: 'fetchDrivers',
+        drivers
+      });
+    },
+    addDriver(store, payload) {
+      store.commit({
+        type: 'addDriver',
+        driver: payload
+      });
+    },
+    removeDriver(store, payload) {
+      store.commit({
+        type: 'removeDriver',
+        id: payload
+      });
+    }
+  }, 
+  plugins: [
+    createLogger()
+  ]
+});
