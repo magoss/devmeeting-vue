@@ -8,13 +8,13 @@
       </li>
     </ul>
 
-    <!-- button added -->
-    <input type="text" v-model="newDriverFirstname" />
-    <input type="text" v-model="newDriverLastname" />
-    <input type="button" value="Add" v-on:click="addDriver" />
-    <div v-if="unableToAdd">
-        Fill both first name and last name input.
-    </div>
+    <form @submit.prevent="onSubmit()">
+      <input type="text" v-model="newDriver.firstname" v-validate="'required|min:3|max:30'" name="firstnameInput" />
+      <input type="text" v-model="newDriver.lastname" v-validate="'required|min:3|max:30'" name="lastnameInput" />
+      <input type="submit" value="Add" :disabled="errors.items.length > 0" />
+      <div v-show="errors.has('firstnameInput')">{{ errors.first('firstnameInput') }}</div>
+      <div v-show="errors.has('lastnameInput')">{{ errors.first('lastnameInput') }}</div>
+    </form>
   </div>
 </template>
 
@@ -28,31 +28,26 @@ export default {
           lastname: "Verstappen"
         }
       ],
-      newDriverFirstname: '',
-      newDriverLastname: '',
-      unableToAdd: false
+      newDriver: {
+        firstname: '',
+        lastname: ''
+      }
     }
   },
   methods: {
-    addDriver() {
+    onSubmit() {
       this.clearMessage();
-
-      if (!!this.newDriverFirstname && !!this.newDriverLastname) {
-          this.drivers.push({
-              firstname: this.newDriverFirstname,
-              lastname: this.newDriverLastname
-          });
-          this.newDriverFirstname = '';
-          this.newDriverLastname = '';
-      } else {
-          this.unableToAdd = true;
+      this.drivers.push(this.newDriver);
+      this.newDriver = {
+        firstname: '',
+        lastname: ''
       }
     },
     removeDriver(index) {
-        this.drivers.splice(index, 1)
+      this.drivers.splice(index, 1)
     },
     clearMessage() {
-        this.unableToAdd = false;
+      this.unableToAdd = false;
     }
   },
   name: 'Drivers'
