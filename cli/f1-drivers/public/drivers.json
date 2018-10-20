@@ -1,0 +1,19 @@
+{
+    "drivers": [
+        {
+            "id": 1,
+            "firstname": "Max",
+            "lastname": "Verstappen"
+        },
+        {
+            "id": 2,
+            "firstname": "Sebastian",
+            "lastname": "Vettel"
+        },
+        {
+            "id": 3,
+            "firstname": "Lewis",
+            "lastname": "Hamilton"
+        }
+    ]
+}
