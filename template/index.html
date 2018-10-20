@@ -22,6 +22,7 @@
         <li v-for="driver in drivers">{{`${driver.firstname} ${driver.lastname}`}}</li>
     </ul>
 
+    <!-- Input added mistakenly earlier :) -->
     <input type="text" v-model="newDriverFirstname" />
     <input type="text" v-model="newDriverLastname" />
     <input type="button" value="Add" v-on:click="addDriver" />
