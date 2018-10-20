@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Drivers />
+    <DriverList />
   </div>
 </template>
 
 <script>
-import Drivers from './components/Drivers.vue';
+import DriverList from './components/DriverList.vue';
 
 export default {
   name: 'app',
   components: {
-    Drivers,
+    DriverList,
   },
 };
 </script>
