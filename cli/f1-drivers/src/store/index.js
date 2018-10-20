@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Move data to store
 const store = {
   state: {
     drivers: []
